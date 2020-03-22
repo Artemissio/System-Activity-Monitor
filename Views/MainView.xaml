@@ -1,0 +1,73 @@
+﻿<Window x:Class="SystemActivityMonitor.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemActivityMonitor.Views"
+        mc:Ignorable="d"
+        Title="MainView" Height="450" Width="800" MinHeight="450" MinWidth="800" 
+        WindowStartupLocation="CenterScreen" Background="#F9F9FA">
+    <Window.Resources>
+        <!--<Setter Property="Background" Value="#D3EDE8"/>-->
+        <!--<Setter Property="Foreground" Value="#3C7168"/>-->
+        <!--<Setter Property="Foreground" Value="#4FAA84"/>-->
+
+        <!--#303030-->
+        <!--№F9F9FA-->
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#D3EDE8"/>
+            <Setter Property="Foreground" Value="#3C7168"/>
+            <Setter Property="FontFamily" Value="Latha"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0.4" BorderBrush="#3C7168" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#4FAA84"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#3C7168"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="3"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="LoadProcesses" Content="Processes" Grid.Column="1" Grid.Row="0" Style="{StaticResource MainButton}"/>
+        <Button x:Name="LoadProductivity" Content="Productivity" Grid.Column="2" Grid.Row="0" Style="{StaticResource MainButton}"/>
+        <Button x:Name="LoadKeyboard" Content="Keyboard" Grid.Column="3" Grid.Row="0" Style="{StaticResource MainButton}"/>
+        <Button x:Name="LoadMouse" Content="Mouse" Grid.Column="4" Grid.Row="0" Style="{StaticResource MainButton}"/>
+        <Button x:Name="LoadWindows" Content="Windows" Grid.Column="5" Grid.Row="0" Style="{StaticResource MainButton}"/>
+
+        <ContentControl x:Name="ActiveItem" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5"/>
+    </Grid>
+</Window>

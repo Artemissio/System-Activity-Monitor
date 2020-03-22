@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="SystemActivityMonitor.Views.ProcessorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cht="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"     
+             xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+		     xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             xmlns:c="http://research.microsoft.com/DynamicDataDisplay/1.0"
+             xmlns:local="clr-namespace:SystemActivityMonitor.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="#F9F9FA">
+    <Grid>
+        <cht:Chart Title="CPU Performance">
+            <cht:Chart.Series>
+                <cht:LineSeries Title="CPU" Background="#F9F9FA" ItemsSource="{Binding Path=Performance, UpdateSourceTrigger=PropertyChanged}"
+                                  DependentValueBinding="{Binding Path=Value}" IndependentValueBinding="{Binding Path=Time}">
+                </cht:LineSeries>
+            </cht:Chart.Series>
+        </cht:Chart>
+    </Grid>
+</UserControl>
