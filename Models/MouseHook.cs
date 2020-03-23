@@ -6,10 +6,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SystemActivityMonitor.AbstractFactoryPattern;
 
 namespace SystemActivityMonitor.Models
 {
-    public class MouseHook : GlobalHook
+    public class MouseHook : GlobalHook, IProduct
     {
         private enum MouseEventType
         {
