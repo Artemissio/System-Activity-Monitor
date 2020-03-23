@@ -5,10 +5,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using SystemActivityMonitor.AbstractFactoryPattern;
 
 namespace SystemActivityMonitor.Models
 {
-    public class KeyboardHook
+    public class KeyboardHook : IProduct
     {
         private delegate IntPtr KeyboardHookHandler(int nCode, IntPtr wParam, IntPtr lParam);
         private KeyboardHookHandler hookHandler;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SystemActivityMonitor.AbstractFactoryPattern;
 using SystemActivityMonitor.CommandPattern;
 
 namespace SystemActivityMonitor.Models
@@ -27,8 +28,17 @@ namespace SystemActivityMonitor.Models
 
         HookSingleton()
         {
-            keyboardHook = new KeyboardHook();
-            mouseHook = new MouseHook();
+            IFactory factory = new KeyboardHookFactory();
+
+            IProduct product = factory.CreateProduct();
+
+            keyboardHook = product as KeyboardHook;
+
+            factory = new MouseHookFactory();
+
+            product = factory.CreateProduct();
+            
+            mouseHook = product as MouseHook;
 
             client = new Client();
 

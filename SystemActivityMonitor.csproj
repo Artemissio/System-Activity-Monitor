@@ -71,6 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AbstractFactoryPattern\IFactory.cs" />
+    <Compile Include="AbstractFactoryPattern\IProduct.cs" />
+    <Compile Include="AbstractFactoryPattern\KeyboardHookFactory.cs" />
+    <Compile Include="AbstractFactoryPattern\MouseHookFactory.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
