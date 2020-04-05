@@ -79,6 +79,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BridgePattern\AbstractPerformanceDisplay.cs" />
+    <Compile Include="BridgePattern\CpuPerformanceDisplay.cs" />
+    <Compile Include="BridgePattern\CpuPerformanceSingleton.cs" />
+    <Compile Include="BridgePattern\IPerformanceSingleton.cs" />
+    <Compile Include="BridgePattern\MemoryPerformanceDisplay.cs" />
+    <Compile Include="BridgePattern\MemoryPerformanceSingleton.cs" />
     <Compile Include="CommandPattern\Client.cs" />
     <Compile Include="CommandPattern\Command.cs" />
     <Compile Include="CommandPattern\Invoker.cs" />
@@ -98,18 +104,11 @@
     <Compile Include="Models\KeyboardHookModel.cs" />
     <Compile Include="Models\MouseHookModel.cs" />
     <Compile Include="Models\Performance.cs" />
-    <Compile Include="Models\CpuPerformanceSingleton.cs" />
     <Compile Include="Models\GlobalHook.cs" />
-    <Compile Include="Models\MemoryPerformanceSingleton.cs" />
     <Compile Include="Models\MouseHook.cs" />
     <Compile Include="Models\WindowInfo.cs" />
     <Compile Include="Models\WindowsStatistics.cs" />
     <Compile Include="Start.cs" />
-    <Compile Include="Models\IProductivityFactory.cs" />
-    <Compile Include="Models\IViewFactory.cs" />
-    <Compile Include="Models\ProductivityFactory.cs" />
-    <Compile Include="Models\StaticViewFactory.cs" />
-    <Compile Include="Models\ViewFactory.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\KeyboardViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -205,6 +204,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="VisitorPattern\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

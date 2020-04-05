@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using SystemActivityMonitor.BridgePattern;
 using SystemActivityMonitor.Models;
 
 namespace SystemActivityMonitor.ViewModels
@@ -15,7 +16,7 @@ namespace SystemActivityMonitor.ViewModels
     public class ProcessorViewModel : Screen, IViewModel
     {
         ObservableCollection<Performance> performance;
-        CpuPerformanceSingleton performanceSingleton = CpuPerformanceSingleton.GetInstance();
+        readonly AbstractPerformanceDisplay _display;
 
         public ObservableCollection<Performance> Performance
         {
@@ -27,8 +28,9 @@ namespace SystemActivityMonitor.ViewModels
             }
         }
 
-        public ProcessorViewModel()
+        public ProcessorViewModel(AbstractPerformanceDisplay display)
         {
+            _display = display;
             _ = UpdateChart();
         }
 
@@ -37,7 +39,7 @@ namespace SystemActivityMonitor.ViewModels
             while (true)
             {
                 await Task.Delay(1000);
-                Performance = new ObservableCollection<Performance>(performanceSingleton.GetPerformance());
+                Performance = new ObservableCollection<Performance>(_display.GetPerformance());
             }
         }
     }

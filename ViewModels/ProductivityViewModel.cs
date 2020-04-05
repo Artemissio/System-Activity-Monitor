@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -6,27 +7,29 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using SystemActivityMonitor.BridgePattern;
 using SystemActivityMonitor.Models;
 
 namespace SystemActivityMonitor.ViewModels
 {
-    public class ProductivityViewModel : ProductivityFactory, IViewModel
+    public class ProductivityViewModel : Conductor<IViewModel>, IViewModel
     {
+        readonly AbstractPerformanceDisplay _memoryDisplay = new MemoryPerformanceDisplay(MemoryPerformanceSingleton.GetInstance());
+        readonly AbstractPerformanceDisplay _cpuDisplay = new CpuPerformanceDisplay(CpuPerformanceSingleton.GetInstance());
+
         public ProductivityViewModel()
         {
             LoadMemory();
         }
 
-        //public override void LoadMemory()
-        //{
-        //    PerformanceCounter theCPUCounter = new PerformanceCounter("Процессор", "% загруженности процессора", "_Total");
+        public virtual void LoadMemory()
+        {
+            ActivateItem(new MemoryViewModel(_memoryDisplay));
+        }
 
-        //    while (true)
-        //    {
-        //        MessageBox.Show("Процессор загружен на " + theCPUCounter.NextValue().ToString() + "%");
-        //        Thread.Sleep(1000);
-        //    }
-            
-        //}
+        public virtual void LoadProcessor()
+        {
+            ActivateItem(new ProcessorViewModel(_cpuDisplay));
+        }
     }
 }

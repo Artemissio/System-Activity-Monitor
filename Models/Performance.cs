@@ -9,6 +9,7 @@ namespace SystemActivityMonitor.Models
     public class Performance
     {
         public DateTime Time { get; set; }
+
         public float Value { get; set; }
     }
 }

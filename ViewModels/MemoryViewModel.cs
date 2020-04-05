@@ -5,27 +5,30 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SystemActivityMonitor.BridgePattern;
 using SystemActivityMonitor.Models;
+using MemoryPerformanceSingleton = SystemActivityMonitor.BridgePattern.MemoryPerformanceSingleton;
 
 namespace SystemActivityMonitor.ViewModels
 {
     public class MemoryViewModel : Screen, IViewModel
     {
-        ObservableCollection<Performance> performance;
-        MemoryPerformanceSingleton performanceSingleton = MemoryPerformanceSingleton.GetInstance();
+        ObservableCollection<Performance> _performance;
+        readonly AbstractPerformanceDisplay _display;
 
         public ObservableCollection<Performance> Performance
         {
-            get { return performance; }
+            get { return _performance; }
             set
             {
-                performance = value;
+                _performance = value;
                 NotifyOfPropertyChange(() => Performance);
             }
         }
 
-        public MemoryViewModel()
-        { 
+        public MemoryViewModel(AbstractPerformanceDisplay display)
+        {
+            _display = display;
             _ = UpdateChart();
         }
 
@@ -34,7 +37,7 @@ namespace SystemActivityMonitor.ViewModels
             while (true)
             {
                 await Task.Delay(1000);
-                Performance = new ObservableCollection<Performance>(performanceSingleton.GetPerformance());
+                Performance = new ObservableCollection<Performance>(_display.GetPerformance());
             }
         }
     }
