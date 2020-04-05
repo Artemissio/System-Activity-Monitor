@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SystemActivityMonitor.Models;
+using SystemActivityMonitor.VisitorPattern;
 
 namespace SystemActivityMonitor.ViewModels
 {
@@ -14,16 +15,11 @@ namespace SystemActivityMonitor.ViewModels
 
         public WindowsViewModel()
         {
-            GetOpenWindows();
-        }
+            ObjectStructure objectStructure = new ObjectStructure();
+            objectStructure.Add(new ListOfWindowsInfo());
+            objectStructure.Accept(new OrderedListVisitor());
 
-        public void GetOpenWindows()
-        {
-            List<WindowInfo> windows;
-
-            WindowsStatistics.GetDesktopWindows(out windows);
-
-            Windows = windows;
+            Windows = objectStructure.GetWindows();
         }
     }
 }

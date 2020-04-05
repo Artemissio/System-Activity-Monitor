@@ -12,7 +12,6 @@ namespace SystemActivityMonitor.ViewModels
     public class MainViewModel : Conductor<IViewModel>.Collection.OneActive
     {
         private readonly HookSingleton _hookSingleton;
-        readonly AbstractPerformanceDisplay _display;
 
         public MainViewModel()
         {

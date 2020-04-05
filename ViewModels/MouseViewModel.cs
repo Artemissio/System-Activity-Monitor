@@ -15,8 +15,6 @@ namespace SystemActivityMonitor.ViewModels
 
         HookSingleton hookSingleton = HookSingleton.GetInstance();
 
-        //KeyboardMouseHooks.GlobalHook globalHook = KeyboardMouseHooks.GlobalHook.GetInstance();
-
         public ObservableCollection<MouseHookModel> MouseEvents
         {
             get { return mouseHookModels; }

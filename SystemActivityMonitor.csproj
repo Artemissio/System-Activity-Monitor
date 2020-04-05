@@ -142,6 +142,12 @@
     <Compile Include="Views\WindowsView.xaml.cs">
       <DependentUpon>WindowsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VisitorPattern\IElement.cs" />
+    <Compile Include="VisitorPattern\IVisitor.cs" />
+    <Compile Include="VisitorPattern\ListOfWindowsInfo.cs" />
+    <Compile Include="VisitorPattern\ObjectStructure.cs" />
+    <Compile Include="VisitorPattern\OrderedListVisitor.cs" />
+    <Compile Include="VisitorPattern\WindowComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -204,8 +210,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="VisitorPattern\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

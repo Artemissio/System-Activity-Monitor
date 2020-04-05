@@ -25,34 +25,6 @@ namespace SystemActivityMonitor.ViewModels
                 Process process = enumerator.Current as Process;
                 Processes.Add(process);
             }
-
-            //Processes = new ObservableCollection<Process>(Process.GetProcesses());
         }
-
-        //public class ProcessData
-        //{
-        //    public int Id { get; set; }
-        //    public string Name { get; set; }
-        //    public string Window { get; set; }
-        //    public DateTime Started { get; set; }
-        //    public int Threads { get; set; }
-        //    public TimeSpan ProcessorTime { get; set; }
-        //    public long Memory { get; set; }
-        //}
-
-        //foreach(Process process in Process.GetProcesses())
-        //{
-        //    Processes.Add(new ProcessData
-        //    {
-        //        Id = process.Id,
-        //        Name = process.ProcessName,
-        //        Window = process.MainWindowTitle,
-        //        Started = process.StartTime,
-        //        Threads = process.Threads.Count,
-        //        ProcessorTime = process.TotalProcessorTime,
-        //        Memory = process.PeakWorkingSet64 / 1024
-        //    });
-        //}
-
     }
 }
