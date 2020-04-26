@@ -46,6 +46,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
     </Reference>
@@ -71,43 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AbstractFactoryPattern\IFactory.cs" />
-    <Compile Include="AbstractFactoryPattern\IProduct.cs" />
-    <Compile Include="AbstractFactoryPattern\KeyboardHookFactory.cs" />
-    <Compile Include="AbstractFactoryPattern\MouseHookFactory.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BridgePattern\AbstractPerformanceDisplay.cs" />
-    <Compile Include="BridgePattern\CpuPerformanceDisplay.cs" />
-    <Compile Include="BridgePattern\CpuPerformanceSingleton.cs" />
-    <Compile Include="BridgePattern\IPerformanceSingleton.cs" />
-    <Compile Include="BridgePattern\MemoryPerformanceDisplay.cs" />
-    <Compile Include="BridgePattern\MemoryPerformanceSingleton.cs" />
-    <Compile Include="CommandPattern\Client.cs" />
-    <Compile Include="CommandPattern\Command.cs" />
-    <Compile Include="CommandPattern\Invoker.cs" />
-    <Compile Include="CommandPattern\MouseDownCommand.cs" />
-    <Compile Include="CommandPattern\MouseEvents.cs" />
-    <Compile Include="CommandPattern\MouseUpCommand.cs" />
-    <Compile Include="CommandPattern\MouseWheelCommand.cs" />
-    <Compile Include="CommandPattern\Receiver.cs" />
-    <Compile Include="IteratorPattern\IdComparer.cs" />
-    <Compile Include="IteratorPattern\IEnumerable.cs" />
-    <Compile Include="IteratorPattern\IEnumerator.cs" />
-    <Compile Include="IteratorPattern\NumberOrderEnumerator.cs" />
-    <Compile Include="IteratorPattern\ProcessEnumerator.cs" />
-    <Compile Include="IteratorPattern\ProcessesCollection.cs" />
-    <Compile Include="Models\KeyboardHook.cs" />
-    <Compile Include="Models\HookSingleton.cs" />
-    <Compile Include="Models\KeyboardHookModel.cs" />
-    <Compile Include="Models\MouseHookModel.cs" />
-    <Compile Include="Models\Performance.cs" />
-    <Compile Include="Models\GlobalHook.cs" />
-    <Compile Include="Models\MouseHook.cs" />
-    <Compile Include="Models\WindowInfo.cs" />
-    <Compile Include="Models\WindowsStatistics.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\KeyboardViewModel.cs" />
@@ -115,8 +86,7 @@
     <Compile Include="ViewModels\MouseViewModel.cs" />
     <Compile Include="ViewModels\ProcessesViewModel.cs" />
     <Compile Include="ViewModels\ProductivityViewModel.cs" />
-    <Compile Include="ViewModels\MemoryViewModel.cs" />
-    <Compile Include="ViewModels\ProcessorViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="ViewModels\WindowsViewModel.cs" />
     <Compile Include="Views\KeyboardView.xaml.cs">
       <DependentUpon>KeyboardView.xaml</DependentUpon>
@@ -124,30 +94,26 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MemoryView.xaml.cs">
-      <DependentUpon>MemoryView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MouseView.xaml.cs">
       <DependentUpon>MouseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProcessesView.xaml.cs">
       <DependentUpon>ProcessesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProcessorView.xaml.cs">
-      <DependentUpon>ProcessorView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ProductivityView.xaml.cs">
       <DependentUpon>ProductivityView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatisticsView.xaml.cs">
+      <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowsView.xaml.cs">
       <DependentUpon>WindowsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisitorPattern\IElement.cs" />
-    <Compile Include="VisitorPattern\IVisitor.cs" />
-    <Compile Include="VisitorPattern\ListOfWindowsInfo.cs" />
-    <Compile Include="VisitorPattern\ObjectStructure.cs" />
-    <Compile Include="VisitorPattern\OrderedListVisitor.cs" />
-    <Compile Include="VisitorPattern\WindowComparer.cs" />
+    <Compile Include="Web References\SystemMonitorWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -168,9 +134,35 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Diagnostics.Process.datasource" />
+    <None Include="Properties\DataSources\WcfService.Models.KeyboardHookModel.datasource" />
+    <None Include="Properties\DataSources\WcfService.Models.MouseHookModel.datasource" />
+    <None Include="Properties\DataSources\WcfService.Models.Performance.datasource" />
+    <None Include="Properties\DataSources\WcfService.Models.StatisticsModel.datasource" />
+    <None Include="Properties\DataSources\WcfService.Models.WindowInfo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SystemMonitorWebService\KeyboardHookModel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SystemMonitorWebService\MouseHookModel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SystemMonitorWebService\Performance.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SystemMonitorWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SystemMonitorWebService\StatisticsModel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SystemMonitorWebService\SystemMonitorService.wsdl" />
+    <None Include="Web References\SystemMonitorWebService\WindowInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -185,10 +177,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MemoryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MouseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,11 +185,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProcessorView.xaml">
+    <Page Include="Views\ProductivityView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProductivityView.xaml">
+    <Page Include="Views\StatisticsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,6 +198,27 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://localhost:44390/SystemMonitorService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SystemMonitorWebService\</RelPath>
+      <UpdateFromURL>https://localhost:44390/SystemMonitorService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SystemActivityMonitor_SystemMonitorWebService_SystemMonitorService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\SystemMonitorWebService\SystemMonitorService.disco" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,19 +7,6 @@
              xmlns:binding="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800" Background="#F9F9FA">
-    <!--<UserControl.Resources>
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#303030"/>
-            <Setter Property="Foreground" Value="#F9F9FA"/>
-        </Style>
-        
-        <Style TargetType="DataGridCell">
-            <Setter Property="Background" Value="#303030"/>
-            <Setter Property="Foreground" Value="#F9F9FA"/>
-            <Setter Property="BorderThickness" Value="0.3"/>
-        </Style>
-    </UserControl.Resources>-->
-    
     <Grid>
         <DataGrid AutoGenerateColumns="False" RowHeight="20" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*"
                   CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" IsReadOnly="True" 

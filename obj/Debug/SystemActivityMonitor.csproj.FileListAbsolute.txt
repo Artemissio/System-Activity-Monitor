@@ -15,16 +15,12 @@ C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\SystemActivityMon
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\ProductivityView.g.cs
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\ProductivityView.baml
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\KeyboardView.g.cs
-C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\MemoryView.g.cs
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\MouseView.g.cs
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\MainView.g.cs
-C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\ProcessorView.g.cs
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\WindowsView.g.cs
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\KeyboardView.baml
-C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\MemoryView.baml
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\MouseView.baml
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\MainView.baml
-C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\ProcessorView.baml
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\WindowsView.baml
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\Caliburn.Micro.dll
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\Caliburn.Micro.Platform.Core.dll
@@ -38,3 +34,5 @@ C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\GeneratedInternal
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\App.baml
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\StatisticsView.g.cs
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\StatisticsView.baml

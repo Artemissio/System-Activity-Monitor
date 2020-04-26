@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
-using SystemActivityMonitor.Models;
-using SystemActivityMonitor.IteratorPattern;
 
 namespace SystemActivityMonitor.ViewModels
 {
@@ -17,14 +13,7 @@ namespace SystemActivityMonitor.ViewModels
 
         public ProcessesViewModel()
         {
-            IEnumerable enumerable = new ProcessesCollection();
-            IEnumerator enumerator = enumerable.GetEnumerator();
-
-            while (enumerator.MoveNext())
-            {
-                Process process = enumerator.Current as Process;
-                Processes.Add(process);
-            }
+            Processes = new ObservableCollection<Process>(Process.GetProcesses());                  
         }
     }
 }

@@ -1,19 +1,13 @@
 ﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using SystemActivityMonitor.Models;
+using SystemActivityMonitor.SystemMonitorWebService;
 
 namespace SystemActivityMonitor.ViewModels
 {
     public class MouseViewModel : Screen, IViewModel
     {
         ObservableCollection<MouseHookModel> mouseHookModels;
-
-        HookSingleton hookSingleton = HookSingleton.GetInstance();
 
         public ObservableCollection<MouseHookModel> MouseEvents
         {
@@ -35,7 +29,7 @@ namespace SystemActivityMonitor.ViewModels
             while (true)
             {
                 await Task.Delay(10);
-                MouseEvents = new ObservableCollection<MouseHookModel>(hookSingleton.GetMouseHooks());
+                MouseEvents = new ObservableCollection<MouseHookModel>(new SystemMonitorService().GetMouseHooks());
             }
         }
     }

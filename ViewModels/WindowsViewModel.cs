@@ -1,11 +1,6 @@
-﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SystemActivityMonitor.Models;
-using SystemActivityMonitor.VisitorPattern;
+using SystemActivityMonitor.SystemMonitorWebService;
 
 namespace SystemActivityMonitor.ViewModels
 {
@@ -15,11 +10,7 @@ namespace SystemActivityMonitor.ViewModels
 
         public WindowsViewModel()
         {
-            ObjectStructure objectStructure = new ObjectStructure();
-            objectStructure.Add(new ListOfWindowsInfo());
-            objectStructure.Accept(new OrderedListVisitor());
-
-            Windows = objectStructure.GetWindows();
+            Windows = new SystemMonitorService().GetOpenWindows().ToList();
         }
     }
 }

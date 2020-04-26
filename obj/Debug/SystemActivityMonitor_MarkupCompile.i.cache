@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\App.xaml
-8899615211
+7-1324997214
 
-62-1476203225
-123364913121
-Views\KeyboardView.xaml;Views\MainView.xaml;Views\MemoryView.xaml;Views\MouseView.xaml;Views\ProcessesView.xaml;Views\ProcessorView.xaml;Views\ProductivityView.xaml;Views\WindowsView.xaml;
+22-513839899
+127224479792
+Views\KeyboardView.xaml;Views\MainView.xaml;Views\MouseView.xaml;Views\ProcessesView.xaml;Views\ProductivityView.xaml;Views\StatisticsView.xaml;Views\WindowsView.xaml;
 
-False
+True
 

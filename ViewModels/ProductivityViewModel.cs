@@ -1,35 +1,50 @@
 ﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
-using SystemActivityMonitor.BridgePattern;
-using SystemActivityMonitor.Models;
+using SystemActivityMonitor.SystemMonitorWebService;
 
 namespace SystemActivityMonitor.ViewModels
 {
     public class ProductivityViewModel : Conductor<IViewModel>, IViewModel
     {
-        readonly AbstractPerformanceDisplay _memoryDisplay = new MemoryPerformanceDisplay(MemoryPerformanceSingleton.GetInstance());
-        readonly AbstractPerformanceDisplay _cpuDisplay = new CpuPerformanceDisplay(CpuPerformanceSingleton.GetInstance());
+        private readonly SystemMonitorService Service;
+
+        ObservableCollection<Performance> _memoryPerformance;
+        public ObservableCollection<Performance> MemoryPerformance
+        {
+            get { return _memoryPerformance; }
+            set
+            {
+                _memoryPerformance = value;
+                NotifyOfPropertyChange(() => MemoryPerformance);
+            }
+        }
+
+        ObservableCollection<Performance> _cpuPerformance;
+        public ObservableCollection<Performance> CpuPerformance
+        {
+            get { return _cpuPerformance; }
+            set
+            {
+                _cpuPerformance = value;
+                NotifyOfPropertyChange(() => CpuPerformance);
+            }
+        }
 
         public ProductivityViewModel()
         {
-            LoadMemory();
+            Service = new SystemMonitorService();
+            _ = UpdateChart();
         }
 
-        public virtual void LoadMemory()
+        async Task UpdateChart()
         {
-            ActivateItem(new MemoryViewModel(_memoryDisplay));
-        }
-
-        public virtual void LoadProcessor()
-        {
-            ActivateItem(new ProcessorViewModel(_cpuDisplay));
+            while (true)
+            {
+                await Task.Delay(1000);
+                MemoryPerformance = new ObservableCollection<Performance>(Service.GetMemoryPerformance());
+                CpuPerformance = new ObservableCollection<Performance>(Service.GetCpuPerformance());
+            }
         }
     }
 }

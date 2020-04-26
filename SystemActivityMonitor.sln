@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemActivityMonitor", "SystemActivityMonitor.csproj", "{229CCC5F-9333-4664-848E-EBB27AC20BDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4} = {E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemMonitorWebService", "SystemMonitorWebService\SystemMonitorWebService.csproj", "{E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{229CCC5F-9333-4664-848E-EBB27AC20BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{229CCC5F-9333-4664-848E-EBB27AC20BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{229CCC5F-9333-4664-848E-EBB27AC20BDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

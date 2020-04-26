@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="SystemActivityMonitor.Views.StatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cht="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"     
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SystemActivityMonitor.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="#F9F9FA">
+
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#4171b6"/>
+            <Setter Property="FontFamily" Value="Latha"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0.4" BorderBrush="#4171b6" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#4171b6"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#32568b"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="СheckmarkButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#4171b6"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Latha"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0.4" BorderBrush="#4171b6" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#32568b"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#87a6d4"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="LoadWindowsData" Grid.Column="0" Grid.Row="1" Content="Top Open Windows"/>
+        <Button x:Name="LoadMostLoadedProcesses" Grid.Column="0" Grid.Row="2" Content="Top Load Processes"/>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="Limit Amount: " VerticalAlignment="Top"  Foreground="Black" FontFamily="Latha"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Amount, UpdateSourceTrigger=PropertyChanged}" Margin="5 2 30 2"
+                 VerticalAlignment="Bottom" MaxLength="2"/>
+
+        <Button x:Name="LoadData" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Width="20" Height="20" HorizontalAlignment="Right"
+                Content="✔" Margin="0 0 5 2" Style="{StaticResource СheckmarkButton}" IsEnabled="{Binding Path=ValidAmount, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <DataGrid AutoGenerateColumns="False" RowHeight="20" CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" IsReadOnly="True" 
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Path=TopList, UpdateSourceTrigger=PropertyChanged}"
+                  Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount}" Width="0.31*"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="0.69*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <cht:Chart Visibility="{Binding WindowsChartVisibility, UpdateSourceTrigger=PropertyChanged}" 
+                   Title="{Binding Path=HeaderText, UpdateSourceTrigger=PropertyChanged}" 
+                   Grid.Column="3" Grid.Row="1" Grid.RowSpan="4">
+            <cht:Chart.Series>
+                <cht:ColumnSeries Title="Windows" ItemsSource="{Binding Path=TopList, UpdateSourceTrigger=PropertyChanged}"
+                                  DependentValueBinding="{Binding Path=Amount}" IndependentValueBinding="{Binding Path=Title}">
+                </cht:ColumnSeries>
+            </cht:Chart.Series>
+        </cht:Chart>
+
+        <cht:Chart Visibility="{Binding LoadedProcessesChartVisibility, UpdateSourceTrigger=PropertyChanged}" 
+                   Title="{Binding Path=HeaderText, UpdateSourceTrigger=PropertyChanged}"
+                   Grid.Column="3" Grid.Row="1" Grid.RowSpan="4">
+            <cht:Chart.Series>
+                <cht:PieSeries ItemsSource="{Binding Path=TopList, UpdateSourceTrigger=PropertyChanged}"
+                               DependentValueBinding="{Binding Path=Amount}" IndependentValueBinding="{Binding Path=Title}">
+                </cht:PieSeries>
+            </cht:Chart.Series>
+        </cht:Chart>
+    </Grid>
+</UserControl>
