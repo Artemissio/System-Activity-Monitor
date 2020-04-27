@@ -89,9 +89,16 @@ namespace SystemMonitorWebService.Models
 
             keyboardHooks.Insert(0, model);
 
-            IRepository<KeyboardHookModel> repository = new SQLiteKeyboardRepository();
+            //try
+            //{
+            //    IRepository<KeyboardHookModel> repository = new SQLiteKeyboardRepository();
 
-            repository.AddToCollection(model);
+            //    repository.AddToCollection(model);
+            //}
+            //catch(Exception ex)
+            //{
+
+            //}
         }
     }
 }

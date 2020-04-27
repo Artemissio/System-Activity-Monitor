@@ -1,16 +1,15 @@
 ﻿using Caliburn.Micro;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using SystemActivityMonitor.SystemMonitorWebService;
+using SystemMonitorWebService.Models;
 
 namespace SystemActivityMonitor.ViewModels
 {
     public class KeyboardViewModel : Screen, IViewModel
     {
-        ObservableCollection<KeyboardHookModel> keyboardHookModels;
+        ObservableCollection<dynamic> keyboardHookModels;
 
-        public ObservableCollection<KeyboardHookModel> KeyboardEvents
+        public ObservableCollection<dynamic> KeyboardEvents
         {
             get { return keyboardHookModels; }
             set
@@ -30,7 +29,7 @@ namespace SystemActivityMonitor.ViewModels
             while (true)
             {
                 await Task.Delay(10);
-                KeyboardEvents = new ObservableCollection<KeyboardHookModel>(new SystemMonitorService().GetKeyboardHooks().ToList());
+                KeyboardEvents = new ObservableCollection<dynamic>(HookSingleton.GetInstance().GetKeyboardHooks());
             }
         }
     }

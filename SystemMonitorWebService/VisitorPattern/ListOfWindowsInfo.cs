@@ -19,17 +19,6 @@ namespace SystemMonitorWebService.VisitorPattern
 
             _windows = windows;
 
-            try
-            {
-                IRepository<WindowInfo> repository = new SQLiteWindowsRepository();
-
-                foreach (var window in windows)
-                {
-                    repository.AddToCollection(window);
-                }
-            }
-            catch (Exception ex) { }
-
             visitor.VisitWindowsList(this);
         }
 

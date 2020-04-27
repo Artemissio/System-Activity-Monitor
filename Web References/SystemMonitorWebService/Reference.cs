@@ -29,10 +29,6 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
     [System.Web.Services.WebServiceBindingAttribute(Name="SystemMonitorServiceSoap", Namespace="https://localhost:44390/SystemMonitorService.asmx")]
     public partial class SystemMonitorService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback GetKeyboardHooksOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback GetMouseHooksOperationCompleted;
-        
         private System.Threading.SendOrPostCallback GetMemoryPerformanceOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetCpuPerformanceOperationCompleted;
@@ -80,12 +76,6 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
         }
         
         /// <remarks/>
-        public event GetKeyboardHooksCompletedEventHandler GetKeyboardHooksCompleted;
-        
-        /// <remarks/>
-        public event GetMouseHooksCompletedEventHandler GetMouseHooksCompleted;
-        
-        /// <remarks/>
         public event GetMemoryPerformanceCompletedEventHandler GetMemoryPerformanceCompleted;
         
         /// <remarks/>
@@ -96,60 +86,6 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
         
         /// <remarks/>
         public event GetMostOpenWindowsCompletedEventHandler GetMostOpenWindowsCompleted;
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://localhost:44390/SystemMonitorService.asmx/GetKeyboardHooks", RequestNamespace="https://localhost:44390/SystemMonitorService.asmx", ResponseNamespace="https://localhost:44390/SystemMonitorService.asmx", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public KeyboardHookModel[] GetKeyboardHooks() {
-            object[] results = this.Invoke("GetKeyboardHooks", new object[0]);
-            return ((KeyboardHookModel[])(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetKeyboardHooksAsync() {
-            this.GetKeyboardHooksAsync(null);
-        }
-        
-        /// <remarks/>
-        public void GetKeyboardHooksAsync(object userState) {
-            if ((this.GetKeyboardHooksOperationCompleted == null)) {
-                this.GetKeyboardHooksOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetKeyboardHooksOperationCompleted);
-            }
-            this.InvokeAsync("GetKeyboardHooks", new object[0], this.GetKeyboardHooksOperationCompleted, userState);
-        }
-        
-        private void OnGetKeyboardHooksOperationCompleted(object arg) {
-            if ((this.GetKeyboardHooksCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetKeyboardHooksCompleted(this, new GetKeyboardHooksCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://localhost:44390/SystemMonitorService.asmx/GetMouseHooks", RequestNamespace="https://localhost:44390/SystemMonitorService.asmx", ResponseNamespace="https://localhost:44390/SystemMonitorService.asmx", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public MouseHookModel[] GetMouseHooks() {
-            object[] results = this.Invoke("GetMouseHooks", new object[0]);
-            return ((MouseHookModel[])(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetMouseHooksAsync() {
-            this.GetMouseHooksAsync(null);
-        }
-        
-        /// <remarks/>
-        public void GetMouseHooksAsync(object userState) {
-            if ((this.GetMouseHooksOperationCompleted == null)) {
-                this.GetMouseHooksOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetMouseHooksOperationCompleted);
-            }
-            this.InvokeAsync("GetMouseHooks", new object[0], this.GetMouseHooksOperationCompleted, userState);
-        }
-        
-        private void OnGetMouseHooksOperationCompleted(object arg) {
-            if ((this.GetMouseHooksCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetMouseHooksCompleted(this, new GetMouseHooksCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://localhost:44390/SystemMonitorService.asmx/GetMemoryPerformance", RequestNamespace="https://localhost:44390/SystemMonitorService.asmx", ResponseNamespace="https://localhost:44390/SystemMonitorService.asmx", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -234,24 +170,28 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://localhost:44390/SystemMonitorService.asmx/GetMostOpenWindows", RequestNamespace="https://localhost:44390/SystemMonitorService.asmx", ResponseNamespace="https://localhost:44390/SystemMonitorService.asmx", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public StatisticsModel[] GetMostOpenWindows(int n) {
+        public StatisticsModel[] GetMostOpenWindows(int n, string startDate, string stopDate) {
             object[] results = this.Invoke("GetMostOpenWindows", new object[] {
-                        n});
+                        n,
+                        startDate,
+                        stopDate});
             return ((StatisticsModel[])(results[0]));
         }
         
         /// <remarks/>
-        public void GetMostOpenWindowsAsync(int n) {
-            this.GetMostOpenWindowsAsync(n, null);
+        public void GetMostOpenWindowsAsync(int n, string startDate, string stopDate) {
+            this.GetMostOpenWindowsAsync(n, startDate, stopDate, null);
         }
         
         /// <remarks/>
-        public void GetMostOpenWindowsAsync(int n, object userState) {
+        public void GetMostOpenWindowsAsync(int n, string startDate, string stopDate, object userState) {
             if ((this.GetMostOpenWindowsOperationCompleted == null)) {
                 this.GetMostOpenWindowsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetMostOpenWindowsOperationCompleted);
             }
             this.InvokeAsync("GetMostOpenWindows", new object[] {
-                        n}, this.GetMostOpenWindowsOperationCompleted, userState);
+                        n,
+                        startDate,
+                        stopDate}, this.GetMostOpenWindowsOperationCompleted, userState);
         }
         
         private void OnGetMostOpenWindowsOperationCompleted(object arg) {
@@ -286,26 +226,14 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://localhost:44390/SystemMonitorService.asmx")]
-    public partial class KeyboardHookModel {
+    public partial class Performance {
         
-        private string eventTypeField;
+        private System.DateTime timeField;
         
-        private string timeField;
-        
-        private string keyCharField;
+        private float valueField;
         
         /// <remarks/>
-        public string EventType {
-            get {
-                return this.eventTypeField;
-            }
-            set {
-                this.eventTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Time {
+        public System.DateTime Time {
             get {
                 return this.timeField;
             }
@@ -315,12 +243,12 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
         }
         
         /// <remarks/>
-        public string KeyChar {
+        public float Value {
             get {
-                return this.keyCharField;
+                return this.valueField;
             }
             set {
-                this.keyCharField = value;
+                this.valueField = value;
             }
         }
     }
@@ -370,6 +298,8 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
         
         private string titleField;
         
+        private string dateField;
+        
         /// <remarks/>
         public int ID {
             get {
@@ -389,146 +319,14 @@ namespace SystemActivityMonitor.SystemMonitorWebService {
                 this.titleField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://localhost:44390/SystemMonitorService.asmx")]
-    public partial class Performance {
-        
-        private System.DateTime timeField;
-        
-        private float valueField;
         
         /// <remarks/>
-        public System.DateTime Time {
+        public string Date {
             get {
-                return this.timeField;
+                return this.dateField;
             }
             set {
-                this.timeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public float Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://localhost:44390/SystemMonitorService.asmx")]
-    public partial class MouseHookModel {
-        
-        private string eventTypeField;
-        
-        private string buttonField;
-        
-        private string xField;
-        
-        private string yField;
-        
-        /// <remarks/>
-        public string EventType {
-            get {
-                return this.eventTypeField;
-            }
-            set {
-                this.eventTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Button {
-            get {
-                return this.buttonField;
-            }
-            set {
-                this.buttonField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string X {
-            get {
-                return this.xField;
-            }
-            set {
-                this.xField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Y {
-            get {
-                return this.yField;
-            }
-            set {
-                this.yField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
-    public delegate void GetKeyboardHooksCompletedEventHandler(object sender, GetKeyboardHooksCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetKeyboardHooksCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetKeyboardHooksCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public KeyboardHookModel[] Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((KeyboardHookModel[])(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
-    public delegate void GetMouseHooksCompletedEventHandler(object sender, GetMouseHooksCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetMouseHooksCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetMouseHooksCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public MouseHookModel[] Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((MouseHookModel[])(this.results[0]));
+                this.dateField = value;
             }
         }
     }

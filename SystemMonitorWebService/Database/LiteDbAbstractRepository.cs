@@ -27,5 +27,6 @@ namespace SystemMonitorWebService.Database
         public abstract List<T> GetDocuments();
         public abstract List<T> GetDocuments(Func<T, bool> expression);
         public abstract void RemoveFromCollection(T parameter);
+        public abstract bool Contains(T document);
     }
 }

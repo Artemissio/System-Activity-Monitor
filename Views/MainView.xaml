@@ -102,7 +102,7 @@
         <Button x:Name="LoadStatistics" Grid.Column="6" Grid.Row="0" Style="{StaticResource StatisticsButton}" 
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Statistics"/>
 
-        <!--<Button x:Name="LoadKeyboard" Content="Keyboard" Grid.Column="4" Grid.Row="0" Style="{StaticResource MainButton}"/>-->
+        <Button x:Name="LoadKeyboard" Content="Keyboard" Grid.Column="4" Grid.Row="0" Style="{StaticResource MainButton}"/>
         <!--<Button x:Name="LoadMouse" Content="Mouse" Grid.Column="5" Grid.Row="0" Style="{StaticResource MainButton}"/>-->
 
         <ContentControl x:Name="ActiveItem" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="6"/>

@@ -14,5 +14,6 @@ namespace SystemMonitorWebService.Database
         void ClearCollection();
         List<T> GetDocuments();
         List<T> GetDocuments(Func<T, bool> expression);
+        bool Contains(T document);
     }
 }

@@ -2,14 +2,15 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using SystemActivityMonitor.SystemMonitorWebService;
+using SystemMonitorWebService.Models;
 
 namespace SystemActivityMonitor.ViewModels
 {
     public class MouseViewModel : Screen, IViewModel
     {
-        ObservableCollection<MouseHookModel> mouseHookModels;
+        ObservableCollection<dynamic> mouseHookModels;
 
-        public ObservableCollection<MouseHookModel> MouseEvents
+        public ObservableCollection<dynamic> MouseEvents
         {
             get { return mouseHookModels; }
             set
@@ -29,7 +30,7 @@ namespace SystemActivityMonitor.ViewModels
             while (true)
             {
                 await Task.Delay(10);
-                MouseEvents = new ObservableCollection<MouseHookModel>(new SystemMonitorService().GetMouseHooks());
+                MouseEvents = new ObservableCollection<dynamic>(HookSingleton.GetInstance().GetMouseHooks());
             }
         }
     }

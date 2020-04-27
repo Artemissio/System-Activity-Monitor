@@ -98,6 +98,11 @@ namespace SystemMonitorWebService.Database
         public override List<KeyboardHookModel> GetDocuments(Func<KeyboardHookModel, bool> expression)
         {
             return GetDocuments().Where(expression).ToList();
-        }        
+        }
+
+        public override bool Contains(KeyboardHookModel document)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using SystemMonitorWebService.Database;
 
 namespace SystemMonitorWebService.Models
 {
@@ -45,7 +46,6 @@ namespace SystemMonitorWebService.Models
         // This version selects visible windows that have titles.
         private static bool FilterCallback(IntPtr hWnd, int lParam)
         {
-            // Get the window's title.
             StringBuilder sb_title = new StringBuilder(1024);
             _ = GetWindowText(hWnd, sb_title, sb_title.Capacity);
             string title = sb_title.ToString();
@@ -56,12 +56,11 @@ namespace SystemMonitorWebService.Models
                 Windows.Add(new WindowInfo
                 {
                     ID = hWnd.ToInt32(),
-                    Title = title
+                    Title = title,
+                    Date = DateTime.Today.ToString("yyyy-MM-dd")
                 });
             }
 
-            // Return true to indicate that we
-            // should continue enumerating windows.
             return true;
         }
     }

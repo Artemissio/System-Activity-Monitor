@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using SystemActivityMonitor.ViewModels;
+using SystemMonitorWebService.Models;
 
 namespace SystemActivityMonitor
 {
@@ -19,6 +20,8 @@ namespace SystemActivityMonitor
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<MainViewModel>();
+
+            HookSingleton.GetInstance();
         }
     }
 }

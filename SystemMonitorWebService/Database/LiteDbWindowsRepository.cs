@@ -109,5 +109,10 @@ namespace SystemMonitorWebService.Database
                 }
             }
         }
+
+        public override bool Contains(WindowInfo document)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

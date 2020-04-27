@@ -23,30 +23,7 @@ namespace SystemMonitorWebService
     public class SystemMonitorService : WebService
     {
         readonly AbstractPerformanceDisplay _memoryDisplay = new MemoryPerformanceDisplay(MemoryPerformanceSingleton.GetInstance());
-        readonly AbstractPerformanceDisplay _cpuDisplay = new CpuPerformanceDisplay(CpuPerformanceSingleton.GetInstance());
-
-        //~SystemMonitorService()
-        //{
-        //    IRepository<Process> repositoryProcess = new SQLIteProcessesRepository();
-
-        //    repositoryProcess.ClearCollection();
-
-        //    IRepository<WindowInfo> repositoryWindowInfo = new SQLiteWindowsRepository();
-
-        //    repositoryWindowInfo.ClearCollection();
-        //}
-
-        [WebMethod]
-        public List<KeyboardHookModel> GetKeyboardHooks()
-        {
-            return HookSingleton.GetInstance().GetKeyboardHooks();
-        }
-
-        [WebMethod]
-        public List<MouseHookModel> GetMouseHooks()
-        {
-            return HookSingleton.GetInstance().GetMouseHooks();
-        }
+        readonly AbstractPerformanceDisplay _cpuDisplay = new CpuPerformanceDisplay(CpuPerformanceSingleton.GetInstance());       
 
         [WebMethod]
         public List<Performance> GetMemoryPerformance()
@@ -67,8 +44,57 @@ namespace SystemMonitorWebService
             objectStructure.Add(new ListOfWindowsInfo());
             objectStructure.Accept(new OrderedListVisitor());
 
-            return objectStructure.GetWindows();
+            var windows = objectStructure.GetWindows();
+
+            try
+            {
+                IRepository<WindowInfo> repository = new SQLiteWindowsRepository();
+
+                foreach (var window in windows)
+                {
+                    if (!repository.Contains(window))
+                    {
+                        repository.AddToCollection(window);
+                    }
+                }
+            }
+            catch (Exception ex) { }
+
+            return windows;
         }
+
+        [WebMethod]
+        public List<StatisticsModel> GetMostOpenWindows(int n, string startDate, string stopDate)
+        {
+            var windows = GetOpenWindows();
+
+            var repository = new SQLiteWindowsRepository();
+
+            return repository.GetMostOpenWindows(n, startDate, stopDate);
+        }
+
+        //~SystemMonitorService()
+        //{
+        //    IRepository<Process> repositoryProcess = new SQLIteProcessesRepository();
+
+        //    repositoryProcess.ClearCollection();
+
+        //    IRepository<WindowInfo> repositoryWindowInfo = new SQLiteWindowsRepository();
+
+        //    repositoryWindowInfo.ClearCollection();
+        //}
+
+        //[WebMethod]
+        //public List<KeyboardHookModel> GetKeyboardHooks()
+        //{
+        //    return HookSingleton.GetInstance().GetKeyboardHooks();
+        //}
+
+        //[WebMethod]
+        //public List<MouseHookModel> GetMouseHooks()
+        //{
+        //    return HookSingleton.GetInstance().GetMouseHooks();
+        //}
 
         //[WebMethod]
         //public List<Process> GetProcesses()
@@ -89,14 +115,5 @@ namespace SystemMonitorWebService
 
         //    return processes;
         //}
-
-        [WebMethod]
-        public List<StatisticsModel> GetMostOpenWindows(int n)
-        {
-            _ = GetOpenWindows();
-            var repository = new SQLiteWindowsRepository();
-
-            return repository.GetMostOpenWindows(n);
-        }
     }
 }

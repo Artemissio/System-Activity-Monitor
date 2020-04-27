@@ -23,6 +23,7 @@ namespace SystemMonitorWebService.Database
         
         public abstract void AddToCollection(T document);
         public abstract void ClearCollection();
+        public abstract bool Contains(T document);
         public abstract List<T> GetDocuments();
         public abstract List<T> GetDocuments(Func<T, bool> expression);
         public abstract void RemoveFromCollection(T document);

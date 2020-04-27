@@ -16,12 +16,13 @@ namespace SystemMonitorWebService.Database
         {
             using(var connection = new SQLiteConnection(ConnectionString))
             {
-                string commandText = "INSERT INTO Windows (ID, Title) VALUES (@ID, @Title)";
+                string commandText = "INSERT INTO Windows (ID, Title, Date) VALUES (@ID, @Title, @Date)";
 
                 var command = new SQLiteCommand(commandText, connection);
 
                 command.Parameters.AddWithValue("@ID", document.ID);
                 command.Parameters.AddWithValue("@Title", document.Title);
+                command.Parameters.AddWithValue("@Date", document.Date);
 
                 connection.Open();
 
@@ -65,23 +66,32 @@ namespace SystemMonitorWebService.Database
             }
         }
 
-        //public override bool Contains(WindowInfo document)
-        //{
-        //    using (var connection = new SQLiteConnection(ConnectionString))
-        //    {
-        //        string commandText = "SELECT * FROM Windows WHERE ID=@ID";
+        public override bool Contains(WindowInfo document)
+        {
+            using (var connection = new SQLiteConnection(ConnectionString))
+            {
+                string commandText = "SELECT COUNT(ID) FROM Windows WHERE ID=@ID AND Title=@Title AND Date=@Date";
 
-        //        var command = new SQLiteCommand(commandText, connection);
+                var command = new SQLiteCommand(commandText, connection);
 
-        //        command.Parameters.AddWithValue("@ID", document.ID);
+                command.Parameters.AddWithValue("@ID", document.ID);
+                command.Parameters.AddWithValue("@Title", document.Title);
+                command.Parameters.AddWithValue("@Date", document.Date);
 
-        //        connection.Open();
+                connection.Open();
 
-        //        int result = command.ExecuteReader().FieldCount;
+                int result = 0;
 
-        //        return result >= 1;
-        //    }
-        //}
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    result = reader.GetInt32(0);
+                }
+
+                return result > 0;
+            }
+        }
 
         public override List<WindowInfo> GetDocuments()
         {
@@ -117,15 +127,35 @@ namespace SystemMonitorWebService.Database
             return GetDocuments().Where(expression).ToList();
         }       
 
-        public List<StatisticsModel> GetMostOpenWindows(int n)
+        public List<StatisticsModel> GetMostOpenWindows(int n, string startDate, string stopDate)
         {
             List<StatisticsModel> result = new List<StatisticsModel>();
 
             using (var connection = new SQLiteConnection(ConnectionString))
             {
-                string commandText = "SELECT count(ID) AS Amount, Title FROM Windows GROUP BY Title ORDER BY Amount DESC LIMIT @N; ";
+                string commandText = "SELECT count(ID) AS Amount, Title FROM Windows WHERE Date";
+
+                if(string.IsNullOrEmpty(stopDate) || string.IsNullOrWhiteSpace(stopDate))
+                {
+                    commandText += "=@Date ";
+                }
+                else
+                {
+                    commandText += " BETWEEN date('now', @StopDate) AND date('now') ";
+                }
+
+                commandText += "GROUP BY Title ORDER BY Amount DESC LIMIT @N";
 
                 var command = new SQLiteCommand(commandText, connection);
+
+                if (string.IsNullOrEmpty(stopDate) || string.IsNullOrWhiteSpace(stopDate))
+                {
+                    command.Parameters.AddWithValue("@Date", startDate);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@StopDate", stopDate);
+                }
 
                 command.Parameters.AddWithValue("@N", n);
 

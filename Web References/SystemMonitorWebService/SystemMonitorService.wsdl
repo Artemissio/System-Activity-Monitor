@@ -2,51 +2,6 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://localhost:44390/SystemMonitorService.asmx" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://localhost:44390/SystemMonitorService.asmx" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="https://localhost:44390/SystemMonitorService.asmx">
-      <s:element name="GetKeyboardHooks">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetKeyboardHooksResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetKeyboardHooksResult" type="tns:ArrayOfKeyboardHookModel" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfKeyboardHookModel">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="KeyboardHookModel" nillable="true" type="tns:KeyboardHookModel" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="KeyboardHookModel">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="EventType" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Time" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="KeyChar" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetMouseHooks">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetMouseHooksResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetMouseHooksResult" type="tns:ArrayOfMouseHookModel" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfMouseHookModel">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="MouseHookModel" nillable="true" type="tns:MouseHookModel" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="MouseHookModel">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="EventType" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Button" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="X" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Y" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetMemoryPerformance">
         <s:complexType />
       </s:element>
@@ -97,12 +52,15 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetMostOpenWindows">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="n" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="startDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="stopDate" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -126,18 +84,6 @@
       </s:complexType>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="GetKeyboardHooksSoapIn">
-    <wsdl:part name="parameters" element="tns:GetKeyboardHooks" />
-  </wsdl:message>
-  <wsdl:message name="GetKeyboardHooksSoapOut">
-    <wsdl:part name="parameters" element="tns:GetKeyboardHooksResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetMouseHooksSoapIn">
-    <wsdl:part name="parameters" element="tns:GetMouseHooks" />
-  </wsdl:message>
-  <wsdl:message name="GetMouseHooksSoapOut">
-    <wsdl:part name="parameters" element="tns:GetMouseHooksResponse" />
-  </wsdl:message>
   <wsdl:message name="GetMemoryPerformanceSoapIn">
     <wsdl:part name="parameters" element="tns:GetMemoryPerformance" />
   </wsdl:message>
@@ -163,14 +109,6 @@
     <wsdl:part name="parameters" element="tns:GetMostOpenWindowsResponse" />
   </wsdl:message>
   <wsdl:portType name="SystemMonitorServiceSoap">
-    <wsdl:operation name="GetKeyboardHooks">
-      <wsdl:input message="tns:GetKeyboardHooksSoapIn" />
-      <wsdl:output message="tns:GetKeyboardHooksSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetMouseHooks">
-      <wsdl:input message="tns:GetMouseHooksSoapIn" />
-      <wsdl:output message="tns:GetMouseHooksSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetMemoryPerformance">
       <wsdl:input message="tns:GetMemoryPerformanceSoapIn" />
       <wsdl:output message="tns:GetMemoryPerformanceSoapOut" />
@@ -190,24 +128,6 @@
   </wsdl:portType>
   <wsdl:binding name="SystemMonitorServiceSoap" type="tns:SystemMonitorServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetKeyboardHooks">
-      <soap:operation soapAction="https://localhost:44390/SystemMonitorService.asmx/GetKeyboardHooks" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetMouseHooks">
-      <soap:operation soapAction="https://localhost:44390/SystemMonitorService.asmx/GetMouseHooks" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetMemoryPerformance">
       <soap:operation soapAction="https://localhost:44390/SystemMonitorService.asmx/GetMemoryPerformance" style="document" />
       <wsdl:input>
@@ -247,24 +167,6 @@
   </wsdl:binding>
   <wsdl:binding name="SystemMonitorServiceSoap12" type="tns:SystemMonitorServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetKeyboardHooks">
-      <soap12:operation soapAction="https://localhost:44390/SystemMonitorService.asmx/GetKeyboardHooks" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetMouseHooks">
-      <soap12:operation soapAction="https://localhost:44390/SystemMonitorService.asmx/GetMouseHooks" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetMemoryPerformance">
       <soap12:operation soapAction="https://localhost:44390/SystemMonitorService.asmx/GetMemoryPerformance" style="document" />
       <wsdl:input>

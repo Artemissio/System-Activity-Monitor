@@ -79,6 +79,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\DateFormatHolder.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\KeyboardViewModel.cs" />
@@ -143,12 +144,6 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\SystemMonitorWebService\KeyboardHookModel.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\SystemMonitorWebService\MouseHookModel.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\SystemMonitorWebService\Performance.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -220,5 +215,12 @@
   <ItemGroup>
     <None Include="Web References\SystemMonitorWebService\SystemMonitorService.disco" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SystemMonitorWebService\SystemMonitorWebService.csproj">
+      <Project>{E7BCD7D3-1091-4066-8C4D-5CFC6F9338B4}</Project>
+      <Name>SystemMonitorWebService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

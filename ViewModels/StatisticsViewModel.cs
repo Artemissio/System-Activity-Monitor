@@ -1,14 +1,12 @@
-﻿using Caliburn.Micro;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
+using SystemActivityMonitor.Models;
 using SystemActivityMonitor.SystemMonitorWebService;
 
 namespace SystemActivityMonitor.ViewModels
@@ -16,8 +14,32 @@ namespace SystemActivityMonitor.ViewModels
     public class StatisticsViewModel : IViewModel, INotifyPropertyChanged
     {
         const string Most = "Most";
-        const string OpenWindows = "Open Windows";
+        const string OpenWindows = "Frequently Open Windows";
         const string LoadProcesses = "Loaded Processes";
+        const string LimitAmount = "Limit Amount";
+        const string ChooseDate = "Choose Date:";
+
+        public Dictionary<string, string> PeriodsDictionary { get; set; } = new Dictionary<string, string>
+            {
+                { "Choose Specific Date", string.Empty },
+                { "Last 3 days", "-3 days" },
+                { "Last Week", "-7 days" },
+                { "Last Month", "-1 month" }
+            };
+
+        private string _selectedPeriod;
+        public string SelectedPeriod
+        {
+            get => _selectedPeriod;
+            set
+            {
+                if (_selectedPeriod == value) return;
+                _selectedPeriod = value;
+                OnPropertyChanged(nameof(SelectedPeriod));
+
+                LoadData();
+            }
+        }
 
         private string _headerText = string.Empty;
         public string HeaderText
@@ -31,33 +53,21 @@ namespace SystemActivityMonitor.ViewModels
             }
         }
 
-        //private bool _validAmount;
-        //public bool ValidAmount
-        //{
-        //    get => _validAmount;
-        //    set
-        //    {
-        //        if (_validAmount == value) return;
-        //        _validAmount = value;
-        //        OnPropertyChanged(nameof(ValidAmount));
-        //    }
-        //}
-
-        //private string _gridTitle = string.Empty;
-        //public string GridTitle
-        //{
-        //    get => _gridTitle;
-        //    set
-        //    {
-        //        if (_gridTitle == value) return;
-        //        _gridTitle = value;
-        //        OnPropertyChanged(nameof(GridTitle));
-        //    }
-        //}
+        private string _menuText = string.Empty;
+        public string MenuText
+        {
+            get => _menuText;
+            set
+            {
+                if (_menuText == value) return;
+                _menuText = value;
+                OnPropertyChanged(nameof(MenuText));
+            }
+        }
 
         bool DisplayWindows { get; set; }
         bool DisplayProcesses { get; set; }
-        public List<StatisticsModel> TopList { get; set; }
+        public List<StatisticsModel> TopList { get; set; } = new List<StatisticsModel>();
 
         private int _amount;
         public int Amount
@@ -65,11 +75,50 @@ namespace SystemActivityMonitor.ViewModels
             get => _amount;
             set
             {
-                if (string.IsNullOrEmpty(value.ToString()) || new Regex("[^0-9]+").IsMatch(value.ToString()) || value < 0) return;
+                if (string.IsNullOrEmpty(value.ToString()) || new Regex("[^0-9]+").IsMatch(value.ToString()) || value < 1) return;
 
                 _amount = value;
 
                 OnPropertyChanged(nameof(Amount));
+            }
+        }
+
+        private int _gridRow;
+        public int GridRow
+        {
+            get => _gridRow;
+            set
+            {
+                if (_gridRow == value) return;
+
+                _gridRow = value;
+                OnPropertyChanged(nameof(GridRow));
+            }
+        }
+
+        private DateTime _date;
+        public DateTime Date
+        {
+            get => _date;
+            set
+            {
+                if (_date == value) return;
+
+                if (string.IsNullOrEmpty(value.ToString()))
+                {
+                    _date = DateTime.Today;
+                }
+                else
+                {
+                    _date = value;
+                }
+
+                OnPropertyChanged(nameof(Date));
+
+                if(string.IsNullOrEmpty(SelectedPeriod) || SelectedPeriod == PeriodsDictionary.ElementAt(0).Key)
+                {
+                    LoadData();
+                }
             }
         }
 
@@ -96,15 +145,29 @@ namespace SystemActivityMonitor.ViewModels
                 OnPropertyChanged(nameof(LoadedProcessesChartVisibility));
             }
         }
-               
+
+        private Visibility _datePicker;
+        public Visibility DatePickerVisibility
+        {
+            get => _datePicker;
+            set
+            {
+                if (_datePicker == value) return;
+                _datePicker = value;
+                OnPropertyChanged(nameof(DatePickerVisibility));
+            }
+        }
+
         string BuildHeader(int amount, string text)
         {
             return $"{amount} {Most} {text}";
-        }               
+        }
 
         public StatisticsViewModel()
         {
             Amount = 5;
+            Date = DateTime.Today;
+
             LoadWindowsData();
         }
 
@@ -126,16 +189,18 @@ namespace SystemActivityMonitor.ViewModels
             TopList = new List<StatisticsModel>();
 
             DisplayWindows = true;
-            DisplayProcesses = false;
+            DisplayProcesses = false;          
 
             WindowsChartVisibility = Visibility.Visible;
+            DatePickerVisibility = Visibility.Visible;
             LoadedProcessesChartVisibility = Visibility.Hidden;
 
             HeaderText = BuildHeader(Amount, OpenWindows);
-            //GridTitle = "Amount";
-            //OnPropertyChanged(nameof(GridTitle));
+            MenuText = LimitAmount + " and " + ChooseDate;
 
-            TopList = new SystemMonitorService().GetMostOpenWindows(Amount).ToList();
+            GridRow = 4;
+
+            TopList = new SystemMonitorService().GetMostOpenWindows(Amount, Date.ToString(DateFormatHolder.yyyyMMdd), SelectedPeriod).ToList();
 
             OnPropertyChanged(nameof(TopList));
         }
@@ -147,10 +212,11 @@ namespace SystemActivityMonitor.ViewModels
             DisplayWindows = false;
             DisplayProcesses = true;
 
-            WindowsChartVisibility = Visibility.Hidden;
             LoadedProcessesChartVisibility = Visibility.Visible;
+            WindowsChartVisibility = Visibility.Hidden;
+            DatePickerVisibility = Visibility.Hidden;
 
-            foreach(var process in Process.GetProcesses())
+            foreach (var process in Process.GetProcesses())
             {
                 TopList.Add(new StatisticsModel
                 {
@@ -160,13 +226,12 @@ namespace SystemActivityMonitor.ViewModels
             }
 
             HeaderText = BuildHeader(Amount, LoadProcesses);
-
-            //GridTitle = "Mb";
+            MenuText = LimitAmount + ":";
+            GridRow = 2;
 
             TopList = TopList.OrderByDescending(x => x.Amount).Take(Amount).ToList();
 
             OnPropertyChanged(nameof(TopList));
-            //OnPropertyChanged(nameof(GridTitle));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

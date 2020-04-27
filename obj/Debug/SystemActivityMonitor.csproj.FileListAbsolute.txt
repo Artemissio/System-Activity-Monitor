@@ -36,3 +36,11 @@ C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\System.Windows.Co
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\StatisticsView.g.cs
 C:\Users\MI\Documents\Projects\SystemActivityMonitor\obj\Debug\Views\StatisticsView.baml
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\SystemMonitorWebService.dll
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\LiteDB.dll
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\System.Data.SQLite.dll
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\SystemMonitorWebService.pdb
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\SystemMonitorWebService.dll.config
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\LiteDB.xml
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\System.Data.SQLite.xml
+C:\Users\MI\Documents\Projects\SystemActivityMonitor\bin\Debug\System.Data.SQLite.dll.config
